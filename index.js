@@ -61,20 +61,15 @@ readl.on('line', async escolha => {
                 console.log(`\n`)
 
                 const conteudoStr = await fsPromise.readFile(caminhoCliente, 'utf-8');
-
-                let conteudo = [];
-                conteudo = JSON.parse(conteudoStr);
                 
-                const novoConteudo = `[${conteudo}, ${JSON.stringify(cpfCliente)}]`;
-
-                console.log(novoConteudo);
+                const novoConteudo = `[${conteudoStr}, ${JSON.stringify(cpfCliente)}]`;
                 
-                // await fsPromise.writeFile(caminhoCliente, novoConteudo, (err) => {
-                //     if (err) throw err;
-                // });
+                await fsPromise.writeFile(caminhoCliente, novoConteudo, (err) => {
+                    if (err) throw err;
+                });
 
-                // const clienteStr = await fsPromise.readFile(caminhoCliente, 'utf-8'); //lendo e enviando
-                // return JSON.parse(clienteStr);
+                const clienteStr = await fsPromise.readFile(caminhoCliente, 'utf-8'); //lendo e enviando
+                return JSON.parse(clienteStr);
                 
             }
 
