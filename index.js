@@ -45,6 +45,7 @@ function question(str) {
 readl.on('line', async escolha => {
     switch (escolha) {
         case '1': {
+
             console.log(`\n`)
             const nome = await question('Qual o seu nome? ');
             const cpf = await question('Qual seu CPF? ')
@@ -52,7 +53,7 @@ readl.on('line', async escolha => {
             
             readl.prompt();
 
-            // console.log('Cliente cadastrado!')
+            
             novoCliente(nome, cpf, email);
 
             async function novoCliente (nome, cpf, email) {
@@ -61,7 +62,7 @@ readl.on('line', async escolha => {
                 console.log(`\n`)
 
                 const conteudoStr = await fsPromise.readFile(caminhoCliente, 'utf-8');
-                
+             
                 const novoConteudo = `[${conteudoStr}, ${JSON.stringify(cpfCliente)}]`;
                 
                 await fsPromise.writeFile(caminhoCliente, novoConteudo, (err) => {
@@ -70,14 +71,42 @@ readl.on('line', async escolha => {
 
                 const clienteStr = await fsPromise.readFile(caminhoCliente, 'utf-8'); //lendo e enviando
                 return JSON.parse(clienteStr);
+
+                console.log('Cliente cadastrado!')
                 
             }
 
             exports.novoCliente = novoCliente;
             
             break;
+        
+        } 
+        case '2': {
+            
+            const consulta = await question('\nQual seu cpf? ');
+            readl.prompt();
+            const caminhoCliente = path.join(__dirname, 'cliente.json');
+            const conteudoStr = await fsPromise.readFile(caminhoCliente, 'utf-8');
+            const conteudo = JSON.parse(conteudoStr);
 
-        } default: {
+            const resultado = conteudo.find(cliente => conteudo.cpf === consulta);
+
+            console.log(conteudo[0].length)
+
+
+            for(let con = 0; con<conteudo.length; con++) {
+                for (let cont = 0; cont<conteudo[con].length; cont++){
+                    if (consulta === conteudo[con].cpf) {
+                        console.log(conteudo(con));
+                    } else {
+                        console.log('Cliente não encontrado');
+                    }
+                }
+            }
+
+
+        }
+        default: {
             console.log('Fechando...');
             readl.close();
         }
