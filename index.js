@@ -42,6 +42,37 @@ function question(str) {
   }
 
 
+async function novoCliente (nome, cpf, email) {
+    const caminhoCliente = path.join(__dirname, 'cliente.json');
+    const cpfCliente = new Cliente(nome, cpf, email);
+    console.log(`\n`)
+
+    const conteudoStr = await fsPromise.readFile(caminhoCliente, 'utf-8');
+    const conteudo = JSON.parse(conteudoStr);
+    conteudo.push(novoCliente);
+
+    await fsPromise.writeFile(caminhoCliente, JSON.stringify(conteudo));
+
+    console.log('Cliente cadastrado!')
+}
+
+async function novaReserva (destino, data, preco, duracao) {
+    const caminhoReserva = path.join(__dirname, 'reservas.json');
+    const novoDestino = new Reserva(destino, data, preco, duracao);
+    console.log(`\n`)
+    
+    const conteudoStr = await fsPromise.readFile(caminhoReserva, 'utf-8');
+    const conteudo = JSON.parse(conteudoStr);
+    conteudo.push(novaReserva);
+   
+    await fsPromise.writeFile(caminhoReserva, JSON.stringify(conteudo));
+    
+    console.log(`Reserva realizada!\n`)
+    
+}
+
+
+
 readl.on('line', async escolha => {
     switch (escolha) {
         case '1': {
@@ -51,33 +82,8 @@ readl.on('line', async escolha => {
             const cpf = await question('Qual seu CPF? ')
             const email = await question('Qual seu email? ')
             
+            await novoCliente(nome, cpf, email);
             readl.prompt();
-
-            
-            novoCliente(nome, cpf, email);
-
-            async function novoCliente (nome, cpf, email) {
-                const caminhoCliente = path.join(__dirname, 'cliente.json');
-                const cpfCliente = new Cliente(nome, cpf, email);
-                console.log(`\n`)
-
-                const conteudoStr = await fsPromise.readFile(caminhoCliente, 'utf-8');
-             
-                const novoConteudo = `[${conteudoStr}, ${JSON.stringify(cpfCliente)}]`;
-                
-                await fsPromise.writeFile(caminhoCliente, novoConteudo, (err) => {
-                    if (err) throw err;
-                });
-
-                const clienteStr = await fsPromise.readFile(caminhoCliente, 'utf-8'); //lendo e enviando
-                return JSON.parse(clienteStr);
-
-                console.log('Cliente cadastrado!')
-                
-            }
-
-            exports.novoCliente = novoCliente;
-            
             break;
         
         } 
@@ -89,21 +95,16 @@ readl.on('line', async escolha => {
             const conteudoStr = await fsPromise.readFile(caminhoCliente, 'utf-8');
             const conteudo = JSON.parse(conteudoStr);
 
-            const resultado = conteudo.find(cliente => conteudo.cpf === consulta);
+            const resultado = conteudo.find(cliente => cliente.cpf === consulta);
 
-            console.log(conteudo[0].length)
-
-
-            for(let con = 0; con<conteudo.length; con++) {
-                for (let cont = 0; cont<conteudo[con].length; cont++){
-                    if (consulta === conteudo[con].cpf) {
-                        console.log(conteudo(con));
-                    } else {
-                        console.log('Cliente não encontrado');
-                    }
-                }
+            if (resultado !== undefined) {
+                console.log(resultado);
+            } else {
+                console.log('Cliente não encontrado!');
             }
 
+            readl.prompt();
+            break;
 
         }
         case '3': {
@@ -115,56 +116,24 @@ readl.on('line', async escolha => {
             const duracao = await question('Qual a duracao ')
             
             readl.prompt();
-
             
-            novaReserva(destino, data, preco, duracao);
-
-            async function novaReserva (destino, data, preco, duracao) {
-                const caminhoReserva = path.join(__dirname, 'reservas.json');
-                const novoDestino = new Reserva(destino, data, preco, duracao);
-                console.log(`\n`)
-
-                const conteudoStr = await fsPromise.readFile(caminhoReserva, 'utf-8');
-             
-                const novoConteudo = `[${conteudoStr}, ${JSON.stringify(novoDestino)}]`;
-                
-                await fsPromise.writeFile(caminhoReserva, novoConteudo, (err) => {
-                    if (err) throw err;
-                });
-
-                const reservaStr = await fsPromise.readFile(caminhoReserva, 'utf-8'); //lendo e enviando
-                return JSON.parse(reservaStr);
-
-                console.log(`Reserva realizada!\n`)
-                
-            }
-
-            exports.novaReserva = novaReserva;
-            
+            await novaReserva(destino, data, preco, duracao);
             break;
-
 
         } 
         case '4': {
 
-            
+            break;
 
         }
         
         default: {
             console.log('Fechando...');
             readl.close();
+            process.exit();
         }
     }
-
-    
-
-
-
-}
-
-
-)
+})
 
 
 
