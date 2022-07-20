@@ -106,6 +106,51 @@ readl.on('line', async escolha => {
 
 
         }
+        case '3': {
+
+            console.log(`\n`)
+            const destino = await question('Qual o seu destino? ');
+            const data = await question('Qual a data ')
+            const preco = await question('Qual preco? ')
+            const duracao = await question('Qual a duracao ')
+            
+            readl.prompt();
+
+            
+            novaReserva(destino, data, preco, duracao);
+
+            async function novaReserva (destino, data, preco, duracao) {
+                const caminhoReserva = path.join(__dirname, 'reservas.json');
+                const novoDestino = new Reserva(destino, data, preco, duracao);
+                console.log(`\n`)
+
+                const conteudoStr = await fsPromise.readFile(caminhoReserva, 'utf-8');
+             
+                const novoConteudo = `[${conteudoStr}, ${JSON.stringify(novoDestino)}]`;
+                
+                await fsPromise.writeFile(caminhoReserva, novoConteudo, (err) => {
+                    if (err) throw err;
+                });
+
+                const reservaStr = await fsPromise.readFile(caminhoReserva, 'utf-8'); //lendo e enviando
+                return JSON.parse(reservaStr);
+
+                console.log(`Reserva realizada!\n`)
+                
+            }
+
+            exports.novaReserva = novaReserva;
+            
+            break;
+
+
+        } 
+        case '4': {
+
+            
+
+        }
+        
         default: {
             console.log('Fechando...');
             readl.close();
