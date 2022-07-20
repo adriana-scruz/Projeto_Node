@@ -73,7 +73,7 @@ readl.on('line', async escolha => {
                 
             }
 
-            // exports.novoCliente = novoCliente;
+            exports.novoCliente = novoCliente;
             
             break;
 
