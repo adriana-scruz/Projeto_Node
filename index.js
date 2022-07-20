@@ -1,6 +1,5 @@
 const Cliente = require('./cliente');
 const Reserva = require('./reserva');
-const ListaReservas = require('./listaReservas');
 
 const readline = require('readline');
 const fsPromise = require('fs').promises;
@@ -31,6 +30,7 @@ readl.setPrompt(
         5. Verificar uma reserva
         6. Atualizar uma reserva
         7. Deletar uma reserva
+        8. Sair do programa
     `
 );
 
@@ -91,13 +91,23 @@ async function atualizarReserva (destino, data, preco, duracao, cpf) {
     
     const conteudoStr = await fsPromise.readFile(caminhoReserva, 'utf-8');
     const conteudo = JSON.parse(conteudoStr);
-    const conteudoRemovido = conteudo.filter(conteudo => conteudo.destino !== destino.destino)
+    const conteudoRemovido = await conteudo.filter(conteudo => conteudo.destino !== destino)
     conteudoRemovido.push(novaReserva);
 
-    console.log(novaReserva);
-    console.log('conteudoRemovido:');
+    await fsPromise.writeFile(caminhoReserva, JSON.stringify(conteudoRemovido));
 
-    console.log(conteudoRemovido);
+    console.log('Reserva atualizada com Sucesso!');
+}
+
+async function deletarReserva (destino) { 
+    const caminhoReserva = path.join(__dirname, 'reservas.json');
+    const conteudoStr = await fsPromise.readFile(caminhoReserva, 'utf-8');
+    const conteudo = JSON.parse(conteudoStr);
+    const conteudoRemovido = await conteudo.filter(conteudo => conteudo.destino !== destino)
+
+    await fsPromise.writeFile(caminhoReserva, JSON.stringify(conteudoRemovido));
+
+    console.log('Reserva deletada com Sucesso!');
 }
 
 
@@ -252,16 +262,37 @@ readl.on('line', async escolha => {
             const novoValor = await question('Qual o nova valor? R$')
             const novaDuracao = await question('Qual a nova duração? ')
 
-            await atualizarReserva(resultadoEscolha, novaData, novoValor, novaDuracao, consulta);
+            await atualizarReserva(escolha, novaData, novoValor, novaDuracao, consulta);
             
             readl.prompt();
             break;
         }
         case '7': {
+            if (cpfatual === '') {
+                var consulta = await question('\nQual seu cpf? ');
+                cpfatual = consulta
+            } else {
+                consulta = cpfatual
+            }
+
+            const resultado = await consultaReserva(consulta);
+            
+            for (let cont = 0; cont<resultado.length; cont++){
+                console.log(`
+                   Destino ${cont+1}: ${resultado[cont].destino}`);
+            }
+            console.log(' \n\ ');
+            const escolha = await question('Qual destino deseja deletar? [Digite o nome da reserva] ')
+
+            await deletarReserva(escolha);
 
             break;
         }
-        
+        case '8': {
+            console.log('Até a próxima...');
+            readl.close();
+            process.exit();
+        }
         default: {
             console.log('Fechando...');
             readl.close();
