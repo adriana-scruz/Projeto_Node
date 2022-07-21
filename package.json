@@ -4,9 +4,12 @@
   "description": "Projeto Final de Modulo",
   "main": "index.js",
   "scripts": {
-    "start": "index.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "Adriana",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "install": "^0.13.0"
+  }
 }

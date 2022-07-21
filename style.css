@@ -1,0 +1,34 @@
+body{
+    background: #E4E0DB;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dados{
+    display:flex
+}
+
+#principal {
+    background: #F4F1EB;
+    width: 600px;
+    margin: auto;
+    margin-top: 50px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #88888849;
+    text-align: center;
+}
+
+section {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #88888849;
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.titulo{
+    font-weight: 600;
+}
+
