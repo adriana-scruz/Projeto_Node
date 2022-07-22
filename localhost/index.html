@@ -7,7 +7,7 @@
     <title>Agencia Viage Bem</title>
     <link rel="stylesheet" href="style.css"/>
 </head>
-<body>
+<body onload="carregar()">
     <div id="principal">
     <header>
         <img src="/imagens/logo_agencia.png" alt="Logo" width="450"/>
@@ -17,22 +17,23 @@
     <section>
         <strong><p>Segue seus dados de cadastro:</p></strong>
         <div class="dados">
-            <p class="titulo">Nome: </p> <p> Teste</p>
+            <p class="titulo">Nome:  </p> <p id="nome">Seu nome aqui </p>
         </div>
         <div class="dados">
-            <p class="titulo">CPF: </p> <p> Teste</p>
+            <p class="titulo">CPF: </p> <p id="cpf"> </p>
         </div>
         <div class="dados">
-            <p class="titulo">Email: </p> <p> Teste</p>
+            <p class="titulo">Email: </p> <p id="email"> </p>
         </div>
 
         <strong><p>Suas reservas:</p></strong>
 
         <div class="dados">
-            <p class="titulo">Reservas: </p> <p> Teste</p>
+            <p class="titulo">Reservas: </p> <p> </p>
+            <p id="reserva"></p>
         </div>
 
-        <script src="/app.js"></script>
+        <script src="/index.js"></script>
     </section>
     <footer>
         <p>By Adriana Cruz</p>

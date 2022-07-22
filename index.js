@@ -110,6 +110,24 @@ async function deletarReserva (destino) {
     console.log('Reserva deletada com Sucesso!');
 }
 
+async function carregar() {
+    let nome = document.getElementById('nome');
+    
+    async function criaRelatorio() {
+        const caminhoCliente = path.join(__dirname, 'cliente.json');
+        const conteudoStr = await fsPromise.readFile(caminhoCliente, 'utf-8');
+        const conteudo = JSON.parse(conteudoStr);
+
+        const clienteTeste = conteudo.find(cliente => cliente.cpf == '2345345345345');
+
+        return conteudo;
+    }
+
+    const consulta = console.log(criaRelatorio());
+    nome.innerHTML = "teste"
+
+}
+
 
 
 readl.on('line', async escolha => {

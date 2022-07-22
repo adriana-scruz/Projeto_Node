@@ -19,9 +19,9 @@ server.on('request', async (req, res) => {
         const filePath = path.join(__dirname, 'style.css');
         const css = await fsPromise.readFile(filePath, 'utf-8');
         res.end(css);
-    } else if ( url === 'app.js') {
+    } else if ( url === '/index.js') {
         res.writeHead(200, { 'Content-Type': 'text/javascript'})
-        const filePath = path.join(__dirname, '/../app.js');
+        const filePath = path.join(__dirname, '../index.js');
         const js = await fsPromise.readFile(filePath, 'utf-8');
         res.end(js);
     } else if ( url === '/imagens/logo_agencia.png') {
