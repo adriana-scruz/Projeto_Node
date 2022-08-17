@@ -1,1 +1,30 @@
-[{"destino":"Alemanha","data":"26/6/2026","preco":"15000","duracao":"20 dias","cpf":"2345345345345"},{"destino":"Madri","data":"30/12/2027","preco":"25.000","duracao":"15 dais","cpf":"23545456765"},{"destino":"Rio de Janeiro","data":"13/4/2023","preco":"6.500","duracao":"8 dias","cpf":"1241324324"}]
+[
+    {
+        "destino": "Alemanha",
+        "data": "26/6/2026",
+        "preco": "15000",
+        "duracao": "20 dias",
+        "cpf": "2345345345345"
+    },
+    {
+        "destino": "Madri",
+        "data": "30/12/2027",
+        "preco": "25.000",
+        "duracao": "15 dais",
+        "cpf": "23545456765"
+    },
+    {
+        "destino": "Madri",
+        "data": "18/3/2023",
+        "preco": "6.000",
+        "duracao": "5 dias",
+        "cpf": "12345"
+    },
+    {
+        "destino": "São Paulo",
+        "data": "26/12/2022",
+        "preco": "5000",
+        "duracao": "20",
+        "cpf": "12345678"
+    }
+]

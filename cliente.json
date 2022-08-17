@@ -1,1 +1,32 @@
-[{"nome":"Maria","cpf":"235432534565","email":"maria@mail.com"},{"nome":"Adriana","cpf":"2345345345345","email":"adriana@mail.com"},{"nome":"George","cpf":"23545456765","email":"george@mail.com"},{"nome":"Marta","cpf":"1241324324","email":"marta@mail.com"}]
+[
+    {
+        "nome": "Maria",
+        "cpf": "235432534565",
+        "email": "maria@mail.com"
+    },
+    {
+        "nome": "Adriana",
+        "cpf": "2345345345345",
+        "email": "adriana@mail.com"
+    },
+    {
+        "nome": "George",
+        "cpf": "23545456765",
+        "email": "george@mail.com"
+    },
+    {
+        "nome": "Marta",
+        "cpf": "1241324324",
+        "email": "marta@mail.com"
+    },
+    {
+        "nome": "João",
+        "cpf": "12345",
+        "email": "joao@mail.com"
+    },
+    {
+        "nome": "Joana",
+        "cpf": "12345678",
+        "email": "joana@mail.com"
+    }
+]
